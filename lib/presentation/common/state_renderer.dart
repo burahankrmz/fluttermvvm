@@ -105,6 +105,7 @@ class StateRenderer extends StatelessWidget {
 
   Widget _getDialogContent(BuildContext context, List<Widget> children) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: children,
@@ -130,6 +131,7 @@ class StateRenderer extends StatelessWidget {
             },
             child: Text(
               buttonTitle,
+              style: getRegularStyle(color: ColorManager.white),
             ),
           ),
         ),

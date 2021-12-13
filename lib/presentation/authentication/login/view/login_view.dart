@@ -7,6 +7,7 @@ import 'package:flutteradvancedmvvm/presentation/resources/assets_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/color_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/routes_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
+import 'package:flutteradvancedmvvm/presentation/resources/styles_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/value_manager.dart';
 
 class LoginView extends StatefulWidget {
@@ -139,9 +140,9 @@ class _LoginViewState extends State<LoginView> {
                         _viewModel.login();
                       }
                     : null,
-                child: const Text(
+                child:  Text(
                   AppStrings.loginBtn,
-                  style: TextStyle(color: Colors.white),
+                  style: getRegularStyle(color: ColorManager.white),
                 ),
               ),
             );

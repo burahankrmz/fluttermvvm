@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutteradvancedmvvm/data/data_source/remote_data_source.dart';
 import 'package:flutteradvancedmvvm/data/network/error_handler.dart';
 import 'package:flutteradvancedmvvm/data/network/network_info.dart';
-import 'package:flutteradvancedmvvm/data/responses/responses.dart';
 import 'package:flutteradvancedmvvm/domain/model/model.dart';
 import 'package:flutteradvancedmvvm/data/requests/requests.dart';
 import 'package:flutteradvancedmvvm/data/network/failure.dart';
@@ -19,9 +17,8 @@ class RepositoryImpl extends Repository {
       LoginRequest loginRequest) async {
     //? _networkInfo.isconnected degeri future oldugu icin async eklendi ve await ile degerin gelmesi beklendi.
     if (await _networkInfo.isConnected) {
-      final AuthenticationResponse response = await _remoteDataSource.login(loginRequest);
       try {
-        debugPrint(response.status.toString());
+        final response = await _remoteDataSource.login(loginRequest);
 
         if (response.status == ApiInternalStatus.SUCCESS) {
           //? for our api is success
