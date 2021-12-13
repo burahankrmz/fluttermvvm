@@ -5,8 +5,10 @@ import 'package:flutteradvancedmvvm/data/network/dio_factory.dart';
 import 'package:flutteradvancedmvvm/data/network/network_info.dart';
 import 'package:flutteradvancedmvvm/data/repository/repository_impl.dart';
 import 'package:flutteradvancedmvvm/domain/repository/repository.dart';
+import 'package:flutteradvancedmvvm/domain/usecase/forgotpassword_usecase.dart';
 import 'package:flutteradvancedmvvm/domain/usecase/login_usecase.dart';
 import 'package:flutteradvancedmvvm/domain/usecase/register_usecase.dart';
+import 'package:flutteradvancedmvvm/presentation/authentication/forgot_password/viewmodel/forgot_password_viewmodel.dart';
 import 'package:flutteradvancedmvvm/presentation/authentication/login/viewmodel/login_viewmodel.dart';
 import 'package:flutteradvancedmvvm/presentation/authentication/register/viewmodel/register_viewmodel.dart';
 import 'package:get_it/get_it.dart';
@@ -57,5 +59,14 @@ initRegisterModule() {
         .registerFactory<RegisterUsecase>(() => RegisterUsecase(instance()));
     instance.registerFactory<RegisterViewModel>(
         () => RegisterViewModel(instance()));
+  }
+}
+
+initForgotPasswordModule() {
+  if (!GetIt.I.isRegistered<ForgotPasswordUseCase>()) {
+    instance.registerFactory<ForgotPasswordUseCase>(
+        () => ForgotPasswordUseCase(instance()));
+    instance.registerFactory<ForgotPasswordViewModel>(
+        () => ForgotPasswordViewModel(instance()));
   }
 }

@@ -43,8 +43,12 @@ class AppStrings {
   static const String alreadyHaveAccountTxtBtn =
       'Already Have an Account? Login';
 
-  //? StateRenderer Strings
+  //? Reset Password Strings
+  static const String resetPasswordBtn = "Reset Password";
+  static const String didntReceiveMailTextBtn =
+      'Didnt receive email? Resend';
 
+  //? StateRenderer Strings
   static const String loading = "Loading...";
   static const String retryAgain = "Retry Again";
   static const String ok = "Ok";

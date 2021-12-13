@@ -4,9 +4,9 @@ class SliderObject {
   String subTitle;
   String image;
   SliderObject(
-     this.title,
-     this.subTitle,
-     this.image,
+    this.title,
+    this.subTitle,
+    this.image,
   );
 }
 
@@ -30,6 +30,11 @@ class Authentication {
   Contacts? contacts;
 
   Authentication(this.customer, this.contacts);
+}
+
+class ForgotPassword {
+  String? support;
+  ForgotPassword(this.support);
 }
 
 class DeviceInfo {

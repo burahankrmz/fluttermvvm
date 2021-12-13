@@ -3,7 +3,7 @@ class LoginRequest {
   String password;
   String imei;
   String deviceType;
-  LoginRequest(this.email,this.password,this.imei,this.deviceType);
+  LoginRequest(this.email, this.password, this.imei, this.deviceType);
 }
 
 class RegisterRequest {
@@ -20,5 +20,12 @@ class RegisterRequest {
     this.email,
     this.password,
     this.profilePicture,
+  );
+}
+
+class ForgotPasswordRequest {
+  String email;
+  ForgotPasswordRequest(
+    this.email,
   );
 }

@@ -28,6 +28,13 @@ extension ContactsResponseMapper on ContactsResponse? {
 //! toDomain extensionlari ile gelen responseler modellere donusturuldu.
 extension AuthenticationResponseMapper on AuthenticationResponse? {
   Authentication toDomain() {
-    return Authentication(this?.customer?.toDomain(), this?.contacts?.toDomain());
+    return Authentication(
+        this?.customer?.toDomain(), this?.contacts?.toDomain());
+  }
+}
+
+extension ForgotPassswordResponseManager on ForgotPasswordResponse? {
+  ForgotPassword toDomain() {
+    return ForgotPassword(this?.support?.orEmpty() ?? EMPTY);
   }
 }

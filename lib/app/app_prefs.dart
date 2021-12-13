@@ -2,7 +2,11 @@ import 'package:flutteradvancedmvvm/presentation/resources/language_manager.dart
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: constant_identifier_names
-const String PREFS_KEY_LANG = '';
+const String PREFS_KEY_LANG = 'PREFS_KEY_LANG';
+// ignore: constant_identifier_names
+const String PREFS_KEY_ONBOARDING_SCREEN = 'PREFS_KEY_ONBOARDING_SCREEN';
+// ignore: constant_identifier_names
+const String PREFS_KEY_USER_LOGGED_IN = 'PREFS_KEY_USER_LOGGED_IN';
 
 class AppPrefences {
   final SharedPreferences _sharedPreferences;
@@ -15,5 +19,20 @@ class AppPrefences {
     } else {
       return LanguageType.ENGLISH.getValue();
     }
+  }
+
+  Future<void> setOnBoardingScreenViewed() async{
+    _sharedPreferences.setBool(PREFS_KEY_ONBOARDING_SCREEN, true);
+  }
+
+  Future<bool> isOnBoardingScreenViewed() async{
+    return _sharedPreferences.getBool(PREFS_KEY_ONBOARDING_SCREEN) ?? false;
+  }
+
+  Future<void> setIsUserLoggedIn() async{
+    _sharedPreferences.setBool(PREFS_KEY_USER_LOGGED_IN, true);
+  }
+  Future<bool> isUserLoggedIn() async{
+    return _sharedPreferences.getBool(PREFS_KEY_USER_LOGGED_IN) ?? false;
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutteradvancedmvvm/app/app_prefs.dart';
+import 'package:flutteradvancedmvvm/app/dependency_injection.dart';
 import 'package:flutteradvancedmvvm/domain/model/model.dart';
-import 'package:flutteradvancedmvvm/presentation/onboarding/onboarding_viewmodel.dart';
+import 'package:flutteradvancedmvvm/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/assets_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/color_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/routes_manager.dart';
@@ -20,8 +22,10 @@ class _OnboardingViewState extends State<OnboardingView> {
   //! sliverobject icin liste olusturuldu. listenin dolmasi icin fonksiyon verildi
   final PageController _pageController = PageController(initialPage: 0);
   final OnBoardingViewModel _viewModel = OnBoardingViewModel();
+  final AppPrefences _appPrefences = instance<AppPrefences>();
 
   _bind() {
+    _appPrefences.setOnBoardingScreenViewed();
     _viewModel.start();
   }
 

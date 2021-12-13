@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutteradvancedmvvm/app/dependency_injection.dart';
+import 'package:flutteradvancedmvvm/presentation/authentication/forgot_password/view/forgot_password_view.dart';
 import 'package:flutteradvancedmvvm/presentation/authentication/login/view/login_view.dart';
 import 'package:flutteradvancedmvvm/presentation/authentication/register/view/register_view.dart';
 import 'package:flutteradvancedmvvm/presentation/home/home.dart';
-import 'package:flutteradvancedmvvm/presentation/onboarding/onboarding_view.dart';
+import 'package:flutteradvancedmvvm/presentation/onboarding/view/onboarding_view.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/splash/splash.dart';
 import 'package:flutteradvancedmvvm/presentation/store_details/store_details.dart';
@@ -31,6 +32,9 @@ class RouteGenerator {
       case Routes.registerRoute:
         initRegisterModule();
         return MaterialPageRoute(builder: (_) => const RegisterView());
+      case Routes.forgotPasswordRoute:
+        initForgotPasswordModule();
+        return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
       case Routes.homeRoute:
         return MaterialPageRoute(builder: (_) => const HomeView());
       case Routes.storeDetailsRoute:

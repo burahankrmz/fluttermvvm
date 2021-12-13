@@ -1,5 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutteradvancedmvvm/app/app_prefs.dart';
 import 'package:flutteradvancedmvvm/app/dependency_injection.dart';
 import 'package:flutteradvancedmvvm/presentation/authentication/login/viewmodel/login_viewmodel.dart';
 import 'package:flutteradvancedmvvm/presentation/common/state_renderer_impl.dart';
@@ -19,6 +21,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final LoginViewModel _viewModel = instance<LoginViewModel>();
+  final AppPrefences _appPrefences = instance<AppPrefences>();
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _userPasswordController = TextEditingController();
@@ -30,6 +33,13 @@ class _LoginViewState extends State<LoginView> {
         .addListener(() => _viewModel.setUserName(_userNameController.text));
     _userPasswordController.addListener(
         () => _viewModel.setPassword(_userPasswordController.text));
+    _viewModel.isUserLoggedInSuccessfullyStreamController.stream
+        .listen((isSuccessLoggedIn) {
+      _appPrefences.setIsUserLoggedIn();
+      SchedulerBinding.instance?.addPostFrameCallback((_) {
+        Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
+      });
+    });
   }
 
   @override
@@ -116,7 +126,7 @@ class _LoginViewState extends State<LoginView> {
   TextButton _buildForgetTextBtn() {
     return TextButton(
       onPressed: () {
-        Navigator.pushReplacementNamed(context, Routes.forgotPasswordRoute);
+        Navigator.pushNamed(context, Routes.forgotPasswordRoute);
       },
       child: Text(AppStrings.forgetPassword,
           style: Theme.of(context).textTheme.subtitle2),
@@ -140,7 +150,7 @@ class _LoginViewState extends State<LoginView> {
                         _viewModel.login();
                       }
                     : null,
-                child:  Text(
+                child: Text(
                   AppStrings.loginBtn,
                   style: getRegularStyle(color: ColorManager.white),
                 ),

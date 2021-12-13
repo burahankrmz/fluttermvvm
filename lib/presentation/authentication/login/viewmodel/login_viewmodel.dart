@@ -11,9 +11,10 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   final StreamController _userPasswordStreamController =
       StreamController<String>.broadcast();
-
   final StreamController _isALLInputsValidStreamController =
       StreamController<void>.broadcast();
+
+  final StreamController isUserLoggedInSuccessfullyStreamController = StreamController<bool>();
 
   var loginObject = LoginObject("", "");
   final LoginUseCase _loginUseCase;
@@ -24,6 +25,7 @@ class LoginViewModel extends BaseViewModel
     _userNameStreamController.close();
     _isALLInputsValidStreamController.close();
     _userPasswordStreamController.close();
+    isUserLoggedInSuccessfullyStreamController.close();
   }
 
   @override
@@ -52,7 +54,12 @@ class LoginViewModel extends BaseViewModel
                   inputState.add(ErrorState(
                       StateRendererType.POPUP_ERROR_STATE, failure.message)),
                 },
-            (data) => {inputState.add(ContentState())});
+            (data) => {
+                  inputState.add(
+                    ContentState(),
+                  ),
+                  isUserLoggedInSuccessfullyStreamController.add(true)
+                });
   }
 
   @override
@@ -60,6 +67,7 @@ class LoginViewModel extends BaseViewModel
     inputPassword.add(password);
     loginObject = loginObject.copyWith(
         password: password); //? data class operation same as kotlin
+        
     _validate();
   }
 

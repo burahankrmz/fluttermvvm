@@ -26,4 +26,9 @@ abstract class AppServiceClient {
     @Field("password") String password,
     @Field("profile_picture") String profilePicture,
   );
+
+  @POST("/customers/forgotPassword")
+  Future<ForgotPasswordResponse> forgotPassword(
+    @Field("email") String email,
+  );
 }
