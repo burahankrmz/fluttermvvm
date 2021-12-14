@@ -52,4 +52,10 @@ class AppStrings {
   static const String loading = "Loading...";
   static const String retryAgain = "Retry Again";
   static const String ok = "Ok";
+
+  //? image picker
+  static const String photoCamera = "Camera";
+  static const String photoGallery = "Gallery";
+  static const String profilePicture = "Profile Picture";
+
 }

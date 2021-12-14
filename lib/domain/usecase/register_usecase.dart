@@ -18,7 +18,7 @@ class RegisterUsecase
         input.mobileNumber,
         input.email,
         input.password,
-        input.profilePicture));
+        "abc"));
   }
 }
 

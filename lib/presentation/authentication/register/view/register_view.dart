@@ -1,14 +1,20 @@
+import 'dart:io';
 import 'package:animate_do/animate_do.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutteradvancedmvvm/app/app_prefs.dart';
 import 'package:flutteradvancedmvvm/app/dependency_injection.dart';
+import 'package:flutteradvancedmvvm/data/mapper/mapper.dart';
 import 'package:flutteradvancedmvvm/presentation/authentication/register/viewmodel/register_viewmodel.dart';
 import 'package:flutteradvancedmvvm/presentation/common/state_renderer_impl.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/assets_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/color_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/routes_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/styles_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/value_manager.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -20,14 +26,13 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   final RegisterViewModel _viewModel = instance<RegisterViewModel>();
   final GlobalKey _formKey = GlobalKey<FormState>();
+  final AppPrefences _appPreferences = instance<AppPrefences>();
+  ImagePicker picker = instance<ImagePicker>();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _countryMobileCodeController =
-      TextEditingController();
+
   final TextEditingController _mobilePhoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _profilePictureController =
-      TextEditingController();
 
   _bind() {
     _viewModel.start();
@@ -35,10 +40,6 @@ class _RegisterViewState extends State<RegisterView> {
       _viewModel.setName(_nameController.text);
     });
 
-    _countryMobileCodeController.addListener(() {
-      _viewModel.setCountryMobileCode(_countryMobileCodeController.text);
-    });
-    _countryMobileCodeController.text = '+90';
     _mobilePhoneController.addListener(() {
       _viewModel.setMobileNumber(_mobilePhoneController.text);
     });
@@ -48,8 +49,13 @@ class _RegisterViewState extends State<RegisterView> {
     _passwordController.addListener(() {
       _viewModel.setPassword(_passwordController.text);
     });
-    _profilePictureController.addListener(() {
-      _viewModel.setProfilePicture(_profilePictureController.text);
+    _viewModel.isUserLoggedInSuccessfullyStreamController.stream
+        .listen((isSuccessLoggedIn) {
+      // navigate to main screen
+      SchedulerBinding.instance?.addPostFrameCallback((_) {
+        _appPreferences.setIsUserLoggedIn();
+        Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
+      });
     });
   }
 
@@ -62,258 +68,301 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.white,
+      appBar: AppBar(
+        elevation: AppSize.s0,
+        iconTheme: IconThemeData(color: ColorManager.primary),
+        backgroundColor: ColorManager.white,
+      ),
       body: StreamBuilder<FlowState>(
-          stream: _viewModel.outputState,
-          builder: (context, snapshot) {
-            return snapshot.data?.getScreenWidget(context, _getContentWidget(),
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return Center(
+            child: snapshot.data?.getScreenWidget(context, _getContentWidget(),
                     () {
                   _viewModel.register();
                 }) ??
-                _getContentWidget();
-          }),
+                _getContentWidget(),
+          );
+        },
+      ),
     );
   }
 
-  Container _getContentWidget() {
+  Widget _getContentWidget() {
     return Container(
-      padding: const EdgeInsets.only(top: AppPadding.p50),
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
+        padding: const EdgeInsets.only(top: AppPadding.p28),
+        child: SingleChildScrollView(
           child: Form(
+            key: _formKey,
             child: Column(
-              children: <Widget>[
-                _buildSplashLogo(),
-                const SizedBox(
-                  height: AppSize.s14,
-                ),
-                _buildNameTextfield(),
-                const SizedBox(
-                  height: AppSize.s14,
-                ),
-                _buildCountryCodeTextfield(),
-                const SizedBox(
-                  height: AppSize.s14,
-                ),
-                _buildMobileNumberTextfield(),
-                const SizedBox(
-                  height: AppSize.s14,
-                ),
-                _buildEmailTextfield(),
-                const SizedBox(
-                  height: AppSize.s14,
-                ),
-                _buildPasswordTextfield(),
-                const SizedBox(
-                  height: AppSize.s14,
-                ),
-                _buildProfilePictureTextfield(),
-                const SizedBox(
-                  height: AppSize.s14,
-                ),
-                _buildRegisterBtn(),
-                const SizedBox(
-                  height: AppSize.s14,
-                ),
-                _buildAlreadyHaveAccountTextBtn()
+              children: [
+                _getSplashLogo(),
+                const SizedBox(height: AppSize.s28),
+                _getUsernameTextField(),
+                _getPhoneNumber(),
+                const SizedBox(height: AppSize.s12),
+                _getEmailTextField(),
+                const SizedBox(height: AppSize.s12),
+                _getPasswordTextfield(),
+                const SizedBox(height: AppSize.s12),
+                _getImagePicker(),
+                const SizedBox(height: AppSize.s28),
+                _getRegisterBtn(),
+                _getHaveAccountTextBtn()
               ],
             ),
+          ),
+        ));
+  }
+
+  Widget _getHaveAccountTextBtn() {
+    return FadeInDown(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: AppPadding.p8,
+          left: AppPadding.p28,
+          right: AppPadding.p28,
+        ),
+        child: TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(AppStrings.alreadyHaveAccountTxtBtn,
+              style: Theme.of(context).textTheme.subtitle2),
+        ),
+      ),
+    );
+  }
+
+  Widget _getRegisterBtn() {
+    return FadeInDown(
+      child: Padding(
+          padding: const EdgeInsets.only(
+              left: AppPadding.p28, right: AppPadding.p28),
+          child: StreamBuilder<bool>(
+            stream: _viewModel.outputIsAllInputsValid,
+            builder: (context, snapshot) {
+              return SizedBox(
+                width: double.infinity,
+                height: AppSize.s40,
+                child: ElevatedButton(
+                    onPressed: (snapshot.data ?? false)
+                        ? () {
+                            _viewModel.register();
+                          }
+                        : null,
+                    child: const Text(AppStrings.registerBtn)),
+              );
+            },
+          )),
+    );
+  }
+
+  Widget _getImagePicker() {
+    return FadeInDown(
+      child: Padding(
+        padding: const EdgeInsets.only(
+            top: AppPadding.p12, left: AppPadding.p28, right: AppPadding.p28),
+        child: Container(
+          height: AppSize.s40,
+          decoration:
+              BoxDecoration(border: Border.all(color: ColorManager.lightGrey)),
+          child: GestureDetector(
+            child: _getMediaWidget(),
+            onTap: () {
+              _showPicker(context);
+            },
           ),
         ),
       ),
     );
   }
 
-  FadeInDown _buildAlreadyHaveAccountTextBtn() {
+  Widget _getPasswordTextfield() {
     return FadeInDown(
       child: Padding(
         padding: const EdgeInsets.only(
-            left: AppPadding.p28,
-            right: AppPadding.p28,
-            bottom: AppPadding.p12),
-        child: TextButton(
-          child: const Text(AppStrings.alreadyHaveAccountTxtBtn),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, Routes.loginRoute);
-          },
-        ),
-      ),
-    );
-  }
-
-  FadeInDown _buildRegisterBtn() {
-    return FadeInDown(
-      child: Padding(
-        padding: const EdgeInsets.only(
-            left: AppPadding.p28,
-            right: AppPadding.p28,
-            bottom: AppPadding.p12),
-        child: StreamBuilder<bool>(
-          stream: _viewModel.outputIsAllInputsValid,
+            top: AppPadding.p12, left: AppPadding.p28, right: AppPadding.p28),
+        child: StreamBuilder<String?>(
+          stream: _viewModel.outputErrorPasswordValid,
           builder: (context, snapshot) {
-            return SizedBox(
-              width: double.infinity,
-              height: AppSize.s40,
-              child: ElevatedButton(
-                onPressed: (snapshot.data ?? false)
-                    ? () {
-                        _viewModel.register();
-                      }
-                    : null,
-                child: Text(
-                  AppStrings.registerBtn,
-                  style: getRegularStyle(color: ColorManager.white),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  FadeInDown _buildProfilePictureTextfield() {
-    return FadeInDown(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-        child: StreamBuilder<bool>(
-            stream: _viewModel.outputIsProfilePictureValid,
-            builder: (context, snapshot) {
-              return TextFormField(
-                controller: _profilePictureController,
-                decoration: InputDecoration(
-                  hintText: AppStrings.profilPicture,
-                  labelText: AppStrings.profilPicture,
-                  errorText: (snapshot.data ?? true)
-                      ? null
-                      : AppStrings.profilPictureError,
-                ),
-              );
-            }),
-      ),
-    );
-  }
-
-  FadeInDown _buildPasswordTextfield() {
-    return FadeInDown(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-        child: StreamBuilder<bool>(
-            stream: _viewModel.outputIsPasswordValid,
-            builder: (context, snapshot) {
-              return TextFormField(
+            return TextFormField(
+                keyboardType: TextInputType.visiblePassword,
                 controller: _passwordController,
                 decoration: InputDecoration(
-                  hintText: AppStrings.password,
-                  labelText: AppStrings.password,
-                  errorText:
-                      (snapshot.data ?? true) ? null : AppStrings.passwordError,
-                ),
-              );
-            }),
+                    hintText: AppStrings.password,
+                    labelText: AppStrings.password,
+                    errorText: snapshot.data));
+          },
+        ),
       ),
     );
   }
 
-  FadeInDown _buildEmailTextfield() {
+  Widget _getEmailTextField() {
     return FadeInDown(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-        child: StreamBuilder<bool>(
-            stream: _viewModel.outputIsEmailValid,
-            builder: (context, snapshot) {
-              return TextFormField(
+        padding:
+            const EdgeInsets.only(left: AppPadding.p28, right: AppPadding.p28),
+        child: StreamBuilder<String?>(
+          stream: _viewModel.outputErrorEmailValid,
+          builder: (context, snapshot) {
+            return TextFormField(
+                keyboardType: TextInputType.emailAddress,
                 controller: _emailController,
                 decoration: InputDecoration(
-                  hintText: AppStrings.email,
-                  labelText: AppStrings.email,
-                  errorText:
-                      (snapshot.data ?? true) ? null : AppStrings.emailError,
-                ),
-              );
-            }),
+                    hintText: AppStrings.email,
+                    labelText: AppStrings.email,
+                    errorText: snapshot.data));
+          },
+        ),
       ),
     );
   }
 
-  FadeInDown _buildMobileNumberTextfield() {
+  Widget _getPhoneNumber() {
     return FadeInDown(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-        child: StreamBuilder<bool>(
-            stream: _viewModel.outputIsMobileNumberValid,
-            builder: (context, snapshot) {
-              return TextFormField(
-                controller: _mobilePhoneController,
-                decoration: InputDecoration(
-                  hintText: AppStrings.mobileNumber,
-                  labelText: AppStrings.mobileNumber,
-                  errorText: (snapshot.data ?? true)
-                      ? null
-                      : AppStrings.mobileNumberError,
-                ),
-              );
-            }),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(
+              top: AppPadding.p20,
+              left: AppPadding.p28,
+              right: AppPadding.p28,
+              bottom: AppPadding.p12),
+          child: Row(
+            children: [
+              Expanded(
+                  flex: 1,
+                  child: CountryCodePicker(
+                    onChanged: (country) {
+                      // update view model with the selected code
+                      _viewModel
+                          .setCountryMobileCode(country.dialCode ?? EMPTY);
+                    },
+                    initialSelection: "+90",
+                    showCountryOnly: true,
+                    hideMainText: true,
+                    showOnlyCountryWhenClosed: true,
+                    favorite: const ["+966", "+02", "+39"],
+                  )),
+              Expanded(
+                  flex: 3,
+                  child: StreamBuilder<String?>(
+                    stream: _viewModel.outputErrorMobileNumberValid,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                          keyboardType: TextInputType.phone,
+                          controller: _mobilePhoneController,
+                          decoration: InputDecoration(
+                              hintText: AppStrings.mobileNumber,
+                              labelText: AppStrings.mobileNumber,
+                              errorText: snapshot.data));
+                    },
+                  ))
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  FadeInDown _buildCountryCodeTextfield() {
+  Widget _getUsernameTextField() {
     return FadeInDown(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-        child: StreamBuilder<bool>(
-            stream: _viewModel.outputIsCountryMobileCodeValid,
-            builder: (context, snapshot) {
-              return TextFormField(
-                controller: _countryMobileCodeController,
-                decoration: InputDecoration(
-                  hintText: AppStrings.countryCode,
-                  labelText: AppStrings.countryCode,
-                  errorText: (snapshot.data ?? true)
-                      ? null
-                      : AppStrings.countryCodeError,
-                ),
-              );
-            }),
-      ),
-    );
-  }
-
-  FadeInDown _buildNameTextfield() {
-    return FadeInDown(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
-        child: StreamBuilder<bool>(
-            stream: _viewModel.outputIsUserNameValid,
-            builder: (context, snapshot) {
-              return TextFormField(
+        padding:
+            const EdgeInsets.only(left: AppPadding.p28, right: AppPadding.p28),
+        child: StreamBuilder<String?>(
+          stream: _viewModel.outputErrorUserNameValid,
+          builder: (context, snapshot) {
+            return TextFormField(
+                keyboardType: TextInputType.emailAddress,
                 controller: _nameController,
                 decoration: InputDecoration(
-                  hintText: AppStrings.name,
-                  labelText: AppStrings.name,
-                  errorText:
-                      (snapshot.data ?? true) ? null : AppStrings.nameError,
-                ),
-              );
-            }),
+                    hintText: AppStrings.userName,
+                    labelText: AppStrings.userName,
+                    errorText: snapshot.data));
+          },
+        ),
       ),
     );
   }
 
-  FadeInDown _buildSplashLogo() {
-    return FadeInDown(
-        child: const Image(image: AssetImage(ImageAssets.splashLogo)));
+  Widget _getSplashLogo() =>
+      FadeInDown(child: const Image(image: AssetImage(ImageAssets.splashLogo)));
+
+  Widget _getMediaWidget() {
+    return Padding(
+      padding: const EdgeInsets.only(left: AppPadding.p8, right: AppPadding.p8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Flexible(child: Text(AppStrings.profilePicture)),
+          Flexible(
+              child: StreamBuilder<File?>(
+            stream: _viewModel.outputIsProfilePictureValid,
+            builder: (context, snapshot) {
+              return _imagePickedByUser(snapshot.data);
+            },
+          )),
+          Flexible(child: SvgPicture.asset(ImageAssets.rightArrowIc)),
+        ],
+      ),
+    );
+  }
+
+  Widget _imagePickedByUser(File? image) {
+    if (image != null && image.path.isNotEmpty) {
+      return Image.file(image);
+    } else {
+      return Container();
+    }
+  }
+
+  _showPicker(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: Wrap(
+              children: [
+                ListTile(
+                  trailing: const Icon(Icons.arrow_forward),
+                  leading: const Icon(Icons.camera),
+                  title: const Text(AppStrings.photoGallery),
+                  onTap: () {
+                    _imageFormGallery();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  trailing: const Icon(Icons.arrow_forward),
+                  leading: const Icon(Icons.camera_alt_rounded),
+                  title: const Text(AppStrings.photoCamera),
+                  onTap: () {
+                    _imageFormCamera();
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            ),
+          );
+        });
+  }
+
+  _imageFormGallery() async {
+    var image = await picker.pickImage(source: ImageSource.gallery);
+    _viewModel.setProfilePicture(File(image?.path ?? ""));
+  }
+
+  _imageFormCamera() async {
+    var image = await picker.pickImage(source: ImageSource.camera);
+    _viewModel.setProfilePicture(File(image?.path ?? ""));
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _countryMobileCodeController.dispose();
-    _mobilePhoneController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _profilePictureController.dispose();
+    _viewModel.dispose();
     super.dispose();
   }
 }
