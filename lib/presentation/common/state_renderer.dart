@@ -22,10 +22,16 @@ enum StateRendererType {
   // ignore: constant_identifier_names
   FULL_SCREEN_ERROR_STATE,
 
+  //? CONTENT STATE
   // ignore: constant_identifier_names
   CONTENT_SCREEN_STATE, //? THE UI OF THE SCREEN
+
   // ignore: constant_identifier_names
-  EMPTY_SCREEN_STATE //? EMPTY VIEW WHEN WE RECEIVE NOT DATA FROM API SIDE FOR LIST SCREEN
+  EMPTY_SCREEN_STATE, //? EMPTY VIEW WHEN WE RECEIVE NOT DATA FROM API SIDE FOR LIST SCREEN
+
+  //? SUCCESS STATE
+  // ignore: constant_identifier_names
+  POPUP_SUCCESS
 }
 
 class StateRenderer extends StatelessWidget {
@@ -69,6 +75,13 @@ class StateRenderer extends StatelessWidget {
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
           _getRetryButton(AppStrings.retryAgain, context)
+        ]);
+      case StateRendererType.POPUP_SUCCESS:
+         return _getPopUpDialog(context, [
+          _getAnimatedImage(JsonAssets.success),
+          _getMessage(title),
+          _getMessage(message),
+          _getRetryButton(AppStrings.ok, context)
         ]);
       case StateRendererType.CONTENT_SCREEN_STATE:
         return Container();

@@ -45,6 +45,18 @@ class EmptyState extends FlowState {
       StateRendererType.EMPTY_SCREEN_STATE;
 }
 
+//? FORGOT PASSWORD SENT State
+class SuccessState extends FlowState {
+
+  String message;
+  SuccessState(this.message);
+  @override
+  String getmessage() => message;
+
+  @override
+  StateRendererType getStateRendererType() => StateRendererType.POPUP_SUCCESS;
+}
+
 //? Content State
 class ContentState extends FlowState {
   ContentState();
@@ -87,6 +99,12 @@ extension FlowStateExtension on FlowState {
               retryActionFunction: retryActionFunction,
             );
           }
+        }
+      case SuccessState:
+        {
+          dismissDialog(context);
+           showPopPup(context, getStateRendererType(), getmessage());
+          return contentScreenWidget;
         }
       case EmptyState:
         {
