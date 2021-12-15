@@ -45,8 +45,7 @@ class AppStrings {
 
   //? Reset Password Strings
   static const String resetPasswordBtn = "Reset Password";
-  static const String didntReceiveMailTextBtn =
-      'Didnt receive email? Resend';
+  static const String didntReceiveMailTextBtn = 'Didnt receive email? Resend';
 
   //? StateRenderer Strings
   static const String loading = "Loading...";
@@ -58,4 +57,9 @@ class AppStrings {
   static const String photoGallery = "Gallery";
   static const String profilePicture = "Profile Picture";
 
+  //? home page strings
+  static const String home = "Home";
+  static const String notifications = "Notifications";
+  static const String search = "Search";
+  static const String settings = "Settings";
 }

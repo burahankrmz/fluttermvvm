@@ -66,6 +66,8 @@ ThemeData getApplicationTheme() {
     textTheme: TextTheme(
       headline1: getSemiBoldStyle(
           color: ColorManager.darkGrey, fontSize: FontSize.s16),
+      headline2:
+          getRegularStyle(color: ColorManager.white, fontSize: FontSize.s16),
       subtitle1:
           getMediumStyle(color: ColorManager.lightGrey, fontSize: FontSize.s14),
       subtitle2:
@@ -105,6 +107,10 @@ ThemeData getApplicationTheme() {
             BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
         borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedItemColor: ColorManager.primary,
+      unselectedItemColor: ColorManager.grey,
     ),
   );
 }
