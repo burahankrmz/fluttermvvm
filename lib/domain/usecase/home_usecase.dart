@@ -8,7 +8,7 @@ class HomeUseCase implements BaseUsecase<void, HomeObject> {
   final Repository _repository;
   HomeUseCase(this._repository);
   @override
-  Future<Either<Failure, HomeObject>> execute(input) async {
+  Future<Either<Failure, HomeObject>> execute(void input) async {
     return await _repository.getHome();
   }
 }

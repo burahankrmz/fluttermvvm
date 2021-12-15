@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutteradvancedmvvm/app/dependency_injection.dart';
+import 'package:flutteradvancedmvvm/presentation/common/state_renderer_impl.dart';
 import 'package:flutteradvancedmvvm/presentation/main/home/viewmodel/home_viewmodel.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({Key? key}) : super(key: key);
@@ -24,8 +24,21 @@ class _HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(AppStrings.home),
+    return StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          debugPrint(snapshot.data?.toString());
+          return snapshot.data?.getScreenWidget(context, _getContentWidget(),
+                  () {
+                _viewModel.start();
+              }) ??
+              Container();
+        });
+  }
+
+  Widget _getContentWidget() {
+    return Scaffold(
+      body: Container(),
     );
   }
 

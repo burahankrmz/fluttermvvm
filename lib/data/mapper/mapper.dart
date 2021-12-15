@@ -49,14 +49,14 @@ extension ServicesResponsesMapper on ServicesResponse? {
 
 extension BannersResponsesMapper on BannersResponse? {
   BannersAd toDomain() {
-    return BannersAd(this?.id?.orZero() ?? ZERO,
+    return BannersAd(this?.id?.orZero() ?? ZERO,this?.link?.orEmpty() ?? EMPTY,
         this?.title?.orEmpty() ?? EMPTY, this?.image?.orEmpty() ?? EMPTY);
   }
 }
 
 extension StoresResponsesMapper on StoresResponse? {
   Stores toDomain() {
-    return Stores(this?.id?.orZero() ?? ZERO, this?.link?.orEmpty() ?? EMPTY,
+    return Stores(this?.id?.orZero() ?? ZERO,
         this?.title?.orEmpty() ?? EMPTY, this?.image?.orEmpty() ?? EMPTY);
   }
 }

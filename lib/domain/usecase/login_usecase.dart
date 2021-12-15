@@ -15,6 +15,7 @@ class LoginUseCase implements BaseUsecase<LoginUseCaseInput, Authentication> {
     return await _repository
         .login(LoginRequest(input.email, input.password, deviceInfo.identifier, deviceInfo.name));
   }
+
 }
 
 class LoginUseCaseInput {

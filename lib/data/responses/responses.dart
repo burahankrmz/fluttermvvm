@@ -91,11 +91,13 @@ class ServicesResponse {
 class BannersResponse {
   @JsonKey(name: "id")
   int? id;
+  @JsonKey(name: "link")
+  String? link;
   @JsonKey(name: "title")
   String? title;
   @JsonKey(name: "image")
   String? image;
-  BannersResponse(this.id, this.title, this.image);
+  BannersResponse(this.id, this.link, this.title, this.image);
 
   Map<String, dynamic> toJson() => _$BannersResponseToJson(this);
 
@@ -107,14 +109,11 @@ class BannersResponse {
 class StoresResponse {
   @JsonKey(name: "id")
   int? id;
-  @JsonKey(name: "link")
-  String? link;
   @JsonKey(name: "title")
   String? title;
   @JsonKey(name: "image")
   String? image;
-  StoresResponse(this.id, this.link, this.title, this.image);
-
+  StoresResponse(this.id, this.title, this.image);
   Map<String, dynamic> toJson() => _$StoresResponseToJson(this);
 
   factory StoresResponse.fromJson(Map<String, dynamic> json) =>
@@ -126,9 +125,9 @@ class HomeDataResponse {
   @JsonKey(name: 'services')
   List<ServicesResponse>? services;
   @JsonKey(name: 'banners')
-  List<ServicesResponse>? banners;
+  List<BannersResponse>? banners;
   @JsonKey(name: 'stores')
-  List<ServicesResponse>? stores;
+  List<StoresResponse>? stores;
 
   HomeDataResponse(this.services, this.banners, this.stores);
 
