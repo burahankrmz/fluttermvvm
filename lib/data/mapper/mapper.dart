@@ -49,15 +49,15 @@ extension ServicesResponsesMapper on ServicesResponse? {
 
 extension BannersResponsesMapper on BannersResponse? {
   BannersAd toDomain() {
-    return BannersAd(this?.id?.orZero() ?? ZERO,this?.link?.orEmpty() ?? EMPTY,
+    return BannersAd(this?.id?.orZero() ?? ZERO, this?.link?.orEmpty() ?? EMPTY,
         this?.title?.orEmpty() ?? EMPTY, this?.image?.orEmpty() ?? EMPTY);
   }
 }
 
 extension StoresResponsesMapper on StoresResponse? {
   Stores toDomain() {
-    return Stores(this?.id?.orZero() ?? ZERO,
-        this?.title?.orEmpty() ?? EMPTY, this?.image?.orEmpty() ?? EMPTY);
+    return Stores(this?.id?.orZero() ?? ZERO, this?.title?.orEmpty() ?? EMPTY,
+        this?.image?.orEmpty() ?? EMPTY);
   }
 }
 
@@ -78,7 +78,19 @@ extension HomeResponseMapper on HomeResponse? {
                 const Iterable.empty())
             .cast<Stores>()
             .toList();
-    var data = HomeData(mappedServices,mappedBanners,mappedStores);
+    var data = HomeData(mappedServices, mappedBanners, mappedStores);
     return HomeObject(data);
+  }
+}
+
+extension StoreDetailsResponseMapper on StoreDetailsResponse? {
+  StoreDetails toDomain() {
+    return StoreDetails(
+        this?.id?.orZero() ?? ZERO,
+        this?.title?.orEmpty() ?? EMPTY,
+        this?.image?.orEmpty() ?? EMPTY,
+        this?.details?.orEmpty() ?? EMPTY,
+        this?.services?.orEmpty() ?? EMPTY,
+        this?.about?.orEmpty() ?? EMPTY);
   }
 }

@@ -195,15 +195,17 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Widget _getSection(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(
-          top: AppPadding.p12,
-          left: AppPadding.p12,
-          right: AppPadding.p12,
-          bottom: AppPadding.p2),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.headline3,
+    return FadeInDown(
+      child: Padding(
+        padding: const EdgeInsets.only(
+            top: AppPadding.p12,
+            left: AppPadding.p12,
+            right: AppPadding.p12,
+            bottom: AppPadding.p2),
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.headline3,
+        ),
       ),
     );
   }

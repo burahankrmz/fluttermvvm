@@ -64,4 +64,14 @@ class AppStrings {
   static const String settings = "Settings";
   static const String services = "services";
   static const String stores = "stores";
+
+  //?
+  //!
+  static const String details = "details";
+  static const String about = "about";
+  static const String storeDetails = "store_details";
+  static const String changeLanguage = "change_language";
+  static const String contactUs = "contact_us";
+  static const String inviteYourFriends = "invite_your_friends";
+  static const String logout = "logout";
 }
