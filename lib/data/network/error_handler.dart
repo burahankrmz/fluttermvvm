@@ -1,6 +1,8 @@
 // ignore: constant_identifier_names
 import 'package:dio/dio.dart';
 import 'package:flutteradvancedmvvm/data/network/failure.dart';
+import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 enum DataSource {
   // ignore: constant_identifier_names
@@ -82,45 +84,49 @@ extension DataSourceExtension on DataSource {
   Failure getFailure() {
     switch (this) {
       case DataSource.BAD_REQUEST:
-        return Failure(ResponseCode.BAD_REQUEST, ResponseMessage.BAD_REQUEST);
+        return Failure(
+            ResponseCode.BAD_REQUEST, ResponseMessage.BAD_REQUEST.tr());
 
       case DataSource.FORBIDDEN:
-        return Failure(ResponseCode.FORBIDDEN, ResponseMessage.FORBIDDEN);
+        return Failure(ResponseCode.FORBIDDEN, ResponseMessage.FORBIDDEN.tr());
 
       case DataSource.UNAUTHORIZED:
-        return Failure(ResponseCode.UNAUTHORIZED, ResponseMessage.UNAUTHORIZED);
+        return Failure(
+            ResponseCode.UNAUTHORIZED, ResponseMessage.UNAUTHORISED.tr());
 
       case DataSource.NOT_FOUND:
-        return Failure(ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND);
+        return Failure(ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND.tr());
 
       case DataSource.INTERNAL_SERVER_ERROR:
         return Failure(ResponseCode.INTERNAL_SERVER_ERROR,
-            ResponseMessage.INTERNAL_SERVER_ERROR);
+            ResponseMessage.INTERNAL_SERVER_ERROR.tr());
 
       case DataSource.CONNECT_TIMEOUT:
         return Failure(
-            ResponseCode.CONNECT_TIMEOUT, ResponseMessage.CONNECT_TIMEOUT);
+            ResponseCode.CONNECT_TIMEOUT, ResponseMessage.CONNECT_TIMEOUT.tr());
 
       case DataSource.CANCEL:
-        return Failure(ResponseCode.CANCEL, ResponseMessage.CANCEL);
+        return Failure(ResponseCode.CANCEL, ResponseMessage.CANCEL.tr());
 
       case DataSource.RECEIVE_TIMEOUT:
         return Failure(
-            ResponseCode.RECEIVE_TIMEOUT, ResponseMessage.RECEIVE_TIMEOUT);
+            ResponseCode.RECEIVE_TIMEOUT, ResponseMessage.RECEIVE_TIMEOUT.tr());
 
       case DataSource.SEND_TIMEOUT:
-        return Failure(ResponseCode.SEND_TIMEOUT, ResponseMessage.SEND_TIMEOUT);
+        return Failure(
+            ResponseCode.SEND_TIMEOUT, ResponseMessage.SEND_TIMEOUT.tr());
 
       case DataSource.CACHE_ERROR:
-        return Failure(ResponseCode.CACHE_ERROR, ResponseMessage.CACHE_ERROR);
+        return Failure(
+            ResponseCode.CACHE_ERROR, ResponseMessage.CACHE_ERROR.tr());
 
       case DataSource.NO_INTERNET_CONNECTION:
         return Failure(ResponseCode.NO_INTERNET_CONNECTION,
-            ResponseMessage.NO_INTERNET_CONNECTION);
+            ResponseMessage.NO_INTERNET_CONNECTION.tr());
       case DataSource.DEFAULT:
-        return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
+        return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT.tr());
       default:
-        return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
+        return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT.tr());
     }
   }
 }
@@ -163,42 +169,51 @@ class ResponseCode {
 class ResponseMessage {
   //! API STATUS CODE
   // ignore: constant_identifier_names
-  static const String SUCCESS = 'success'; //? success with data
+  // API status codes
+  // API response codes
+  // ignore: constant_identifier_names
+  static const String SUCCESS = AppStrings.success; // success with data
   // ignore: constant_identifier_names
   static const String NO_CONTENT =
-      'success with no content'; //? success with no content
+      AppStrings.noContent; // success with no content
   // ignore: constant_identifier_names
   static const String BAD_REQUEST =
-      'Bad request, try again later'; //? failure, api rejected the request
+      AppStrings.badRequestError; // failure, api rejected our request
   // ignore: constant_identifier_names
   static const String FORBIDDEN =
-      'Forbidden request, try again later'; //? failure, api rejected the request
+      AppStrings.forbiddenError; // failure,  api rejected our request
   // ignore: constant_identifier_names
-  static const String UNAUTHORIZED =
-      'User is unauthorized, try again later'; //? failure user is not authorized
+  static const String UNAUTHORISED =
+      AppStrings.unauthorizedError; // failure, user is not authorised
   // ignore: constant_identifier_names
-  static const String NOT_FOUND =
-      'Url is not found, try again later'; //? failure, api url is not found
+  static const String NOT_FOUND = AppStrings
+      .notFoundError; // failure, API url is not correct and not found in api side.
   // ignore: constant_identifier_names
   static const String INTERNAL_SERVER_ERROR =
-      'something went wrong, try again later'; //? failure, crash happened in server side
+      AppStrings.internalServerError; // failure, a crash happened in API side.
 
-  //! LOCAL STATUS CODE
+  // local responses codes
   // ignore: constant_identifier_names
-  static const String DEFAULT = 'something went wrong, try again later';
+  static const String DEFAULT =
+      AppStrings.defaultError; // unknown error happened
   // ignore: constant_identifier_names
-  static const String CONNECT_TIMEOUT = 'timeout error, try again later';
+  static const String CONNECT_TIMEOUT =
+      AppStrings.timeoutError; // issue in connectivity
   // ignore: constant_identifier_names
-  static const String CANCEL = 'request was cancelled, try again later';
+  static const String CANCEL =
+      AppStrings.defaultError; // API request was cancelled
   // ignore: constant_identifier_names
-  static const String RECEIVE_TIMEOUT = 'timeout error, try again later';
+  static const String RECEIVE_TIMEOUT =
+      AppStrings.timeoutError; //  issue in connectivity
   // ignore: constant_identifier_names
-  static const String SEND_TIMEOUT = 'timeout error, try again later';
+  static const String SEND_TIMEOUT =
+      AppStrings.timeoutError; //  issue in connectivity
   // ignore: constant_identifier_names
-  static const String CACHE_ERROR = 'cache error, try again later';
+  static const String CACHE_ERROR = AppStrings
+      .defaultError; //  issue in getting data from local data source (cache)
   // ignore: constant_identifier_names
   static const String NO_INTERNET_CONNECTION =
-      'Please check your internet connection';
+      AppStrings.noInternetError; // issue in connectivity
 }
 
 class ApiInternalStatus {

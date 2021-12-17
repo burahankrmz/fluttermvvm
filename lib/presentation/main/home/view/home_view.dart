@@ -9,6 +9,7 @@ import 'package:flutteradvancedmvvm/presentation/resources/color_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/routes_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({Key? key}) : super(key: key);
@@ -55,9 +56,9 @@ class _HomePageViewState extends State<HomePageView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _getBanners(snapshot.data?.banners),
-              _getSection(AppStrings.services),
+              _getSection(AppStrings.services.tr()),
               _getServicesWidget(snapshot.data?.services),
-              _getSection(AppStrings.stores),
+              _getSection(AppStrings.stores.tr()),
               _getStoresWidget(snapshot.data?.stores),
             ],
           );

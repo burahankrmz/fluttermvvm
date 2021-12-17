@@ -8,6 +8,7 @@ import 'package:flutteradvancedmvvm/presentation/resources/color_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/styles_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({Key? key}) : super(key: key);
@@ -103,10 +104,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  hintText: AppStrings.email,
-                  labelText: AppStrings.email,
+                  hintText: AppStrings.emailHint.tr(),
+                  labelText: AppStrings.emailHint.tr(),
                   errorText:
-                      (snapshot.data ?? true) ? null : AppStrings.emailError,
+                      (snapshot.data ?? true) ? null : AppStrings.invalidEmail.tr(),
                 ),
               );
             }),
@@ -126,11 +127,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 return ElevatedButton(
                   onPressed: (snapshot.data ?? false)
                       ? () {
-                          _viewModel.forgotPassword();
+                          _viewModel.forgotPassword().tr();
                         }
                       : null,
                   child: Text(
-                    AppStrings.resetPasswordBtn,
+                    AppStrings.resetPassword.tr(),
                     style: getRegularStyle(color: ColorManager.white),
                   ),
                 );
@@ -148,7 +149,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           onPressed: () {
             _viewModel.forgotPassword();
           },
-          child: const Text(AppStrings.didntReceiveMailTextBtn),
+          child:  Text(AppStrings.didntReceiveMailTextBtn.tr()),
         ),
       ),
     );

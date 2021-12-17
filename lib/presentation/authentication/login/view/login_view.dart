@@ -11,6 +11,7 @@ import 'package:flutteradvancedmvvm/presentation/resources/routes_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/styles_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -118,7 +119,7 @@ class _LoginViewState extends State<LoginView> {
       onPressed: () {
         Navigator.pushNamed(context, Routes.registerRoute);
       },
-      child: Text(AppStrings.registerTxtBtn,
+      child: Text(AppStrings.registerText.tr(),
           style: Theme.of(context).textTheme.subtitle2),
     );
   }
@@ -128,7 +129,7 @@ class _LoginViewState extends State<LoginView> {
       onPressed: () {
         Navigator.pushNamed(context, Routes.forgotPasswordRoute);
       },
-      child: Text(AppStrings.forgetPassword,
+      child: Text(AppStrings.forgetPassword.tr(),
           style: Theme.of(context).textTheme.subtitle2),
     );
   }
@@ -151,7 +152,7 @@ class _LoginViewState extends State<LoginView> {
                       }
                     : null,
                 child: Text(
-                  AppStrings.loginBtn,
+                  AppStrings.login.tr(),
                   style: getRegularStyle(color: ColorManager.white),
                 ),
               ),
@@ -174,10 +175,10 @@ class _LoginViewState extends State<LoginView> {
               controller: _userPasswordController,
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
-                hintText: AppStrings.password,
-                labelText: AppStrings.password,
+                hintText: AppStrings.password.tr(),
+                labelText: AppStrings.password.tr(),
                 errorText:
-                    (snapshot.data ?? true) ? null : AppStrings.passwordError,
+                    (snapshot.data ?? true) ? null : AppStrings.passwordError.tr(),
               ),
             );
           },
@@ -198,10 +199,10 @@ class _LoginViewState extends State<LoginView> {
               controller: _userNameController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                hintText: AppStrings.userName,
-                labelText: AppStrings.userName,
+                hintText: AppStrings.username.tr(),
+                labelText: AppStrings.username.tr(),
                 errorText:
-                    (snapshot.data ?? true) ? null : AppStrings.userNameError,
+                    (snapshot.data ?? true) ? null : AppStrings.usernameError.tr(),
               ),
             );
           },

@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutteradvancedmvvm/presentation/main/home/view/home_view.dart';
 import 'package:flutteradvancedmvvm/presentation/main/notifications/notifications_page.dart';
 import 'package:flutteradvancedmvvm/presentation/main/search/search_page.dart';
-import 'package:flutteradvancedmvvm/presentation/main/settings/settings_page.dart';
+import 'package:flutteradvancedmvvm/presentation/main/settings/view/settings_page.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/color_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -23,14 +24,14 @@ class _MainViewState extends State<MainView> {
     SettingsPage()
   ];
 
-  List<String> titles = const [
-    AppStrings.home,
-    AppStrings.search,
-    AppStrings.notifications,
-    AppStrings.settings,
+  List<String> titles =  [
+    AppStrings.home.tr(),
+    AppStrings.search.tr(),
+    AppStrings.notifications.tr(),
+    AppStrings.settings.tr(),
   ];
 
-  String _title = AppStrings.home;
+  String _title = AppStrings.home.tr();
   int _currentIndex = 0;
 
   @override
@@ -53,27 +54,27 @@ class _MainViewState extends State<MainView> {
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: onTap,
-          items: const [
+          items:  [
             BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(
                   Icons.home,
                 ),
-                label: AppStrings.home),
+                label: AppStrings.home.tr()),
             BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                 ),
-                label: AppStrings.search),
+                label: AppStrings.search.tr()),
             BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(
                   Icons.notifications,
                 ),
-                label: AppStrings.notifications),
+                label: AppStrings.notifications.tr()),
             BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(
                   Icons.settings,
                 ),
-                label: AppStrings.settings),
+                label: AppStrings.settings.tr()),
           ],
         ),
       ),

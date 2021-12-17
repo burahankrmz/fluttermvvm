@@ -10,6 +10,7 @@ import 'package:flutteradvancedmvvm/presentation/resources/color_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/routes_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/resources/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({Key? key}) : super(key: key);
@@ -83,7 +84,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                   Navigator.pushReplacementNamed(context, Routes.loginRoute);
                 },
                 child: Text(
-                  AppStrings.skipBtn,
+                  AppStrings.skip.tr(),
                   textAlign: TextAlign.end,
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
