@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutteradvancedmvvm/core/colors/color_manager.dart';
-import 'package:flutteradvancedmvvm/core/fonts/font_manager.dart';
-import 'package:flutteradvancedmvvm/core/styles/styles_manager.dart';
-import 'package:flutteradvancedmvvm/core/constants/value_manager.dart';
+import '../colors/color_manager.dart';
+import '../fonts/font_manager.dart';
+import '../styles/styles_manager.dart';
+import '../constants/value_manager.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(
@@ -66,10 +66,17 @@ ThemeData getApplicationTheme() {
     textTheme: TextTheme(
       headline1: getSemiBoldStyle(
           color: ColorManager.darkGrey, fontSize: FontSize.s16),
+      headline2:
+          getRegularStyle(color: ColorManager.white, fontSize: FontSize.s16),
+      headline3:
+          getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s16),
+      headline4:
+          getRegularStyle(color: ColorManager.primary, fontSize: FontSize.s14),
       subtitle1:
           getMediumStyle(color: ColorManager.lightGrey, fontSize: FontSize.s14),
       subtitle2:
           getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s14),
+      bodyText2: getMediumStyle(color: ColorManager.lightGrey),
       caption: getRegularStyle(color: ColorManager.grey1),
       bodyText1: getRegularStyle(color: ColorManager.grey),
     ),
@@ -105,6 +112,10 @@ ThemeData getApplicationTheme() {
             BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
         borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedItemColor: ColorManager.primary,
+      unselectedItemColor: ColorManager.grey,
     ),
   );
 }

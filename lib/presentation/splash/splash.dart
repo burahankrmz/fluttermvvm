@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutteradvancedmvvm/app/app_prefs.dart';
-import 'package:flutteradvancedmvvm/app/dependency_injection.dart';
-import 'package:flutteradvancedmvvm/core/assets/assets_manager.dart';
-import 'package:flutteradvancedmvvm/core/colors/color_manager.dart';
-import 'package:flutteradvancedmvvm/core/routes/routes_manager.dart';
+import '../../app/app_prefs.dart';
+import '../../app/dependency_injection.dart';
+import '../../core/assets/assets_manager.dart';
+import '../../core/colors/color_manager.dart';
+import '../../core/routes/routes_manager.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class _SplashViewState extends State<SplashView> {
   _goNext() async {
     _appPrefences.isUserLoggedIn().then((isUserLoggedIn) => {
           if (isUserLoggedIn)
-            {Navigator.pushReplacementNamed(context, Routes.homeRoute)}
+            {Navigator.pushReplacementNamed(context, Routes.mainRoute)}
           else
             {
               _appPrefences

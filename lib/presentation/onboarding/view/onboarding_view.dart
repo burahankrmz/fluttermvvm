@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutteradvancedmvvm/app/app_prefs.dart';
-import 'package:flutteradvancedmvvm/app/dependency_injection.dart';
-import 'package:flutteradvancedmvvm/domain/model/model.dart';
-import 'package:flutteradvancedmvvm/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
-import 'package:flutteradvancedmvvm/core/assets/assets_manager.dart';
-import 'package:flutteradvancedmvvm/core/colors/color_manager.dart';
-import 'package:flutteradvancedmvvm/core/routes/routes_manager.dart';
-import 'package:flutteradvancedmvvm/core/constants/strings_manager.dart';
-import 'package:flutteradvancedmvvm/core/constants/value_manager.dart';
+import '../../../app/app_prefs.dart';
+import '../../../app/dependency_injection.dart';
+import '../../../domain/model/model.dart';
+import '../viewmodel/onboarding_viewmodel.dart';
+import '../../../core/assets/assets_manager.dart';
+import '../../../core/colors/color_manager.dart';
+import '../../../core/routes/routes_manager.dart';
+import '../../../core/constants/strings_manager.dart';
+import '../../../core/constants/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({Key? key}) : super(key: key);
@@ -83,7 +84,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                   Navigator.pushReplacementNamed(context, Routes.loginRoute);
                 },
                 child: Text(
-                  AppStrings.skipBtn,
+                  AppStrings.skip.tr(),
                   textAlign: TextAlign.end,
                   style: Theme.of(context).textTheme.subtitle2,
                 ),

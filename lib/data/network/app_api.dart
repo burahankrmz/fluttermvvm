@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutteradvancedmvvm/app/constants.dart';
-import 'package:flutteradvancedmvvm/data/responses/responses.dart';
+import '../../app/constants.dart';
+import '../responses/responses.dart';
 import 'package:retrofit/http.dart';
 
 part 'app_api.g.dart';
@@ -31,4 +31,9 @@ abstract class AppServiceClient {
   Future<ForgotPasswordResponse> forgotPassword(
     @Field("email") String email,
   );
+
+  @GET("/home")
+  Future<HomeResponse> getHome();
+  @GET("/storeDetails/1")
+  Future<StoreDetailsResponse> getStoreDetails();
 }

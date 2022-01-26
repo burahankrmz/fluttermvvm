@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutteradvancedmvvm/app/app_prefs.dart';
-import 'package:flutteradvancedmvvm/app/constants.dart';
+import '../../app/app_prefs.dart';
+import '../../app/constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 // ignore: constant_identifier_names

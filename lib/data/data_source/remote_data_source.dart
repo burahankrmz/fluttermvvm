@@ -1,12 +1,14 @@
-import 'package:flutteradvancedmvvm/data/network/app_api.dart';
-import 'package:flutteradvancedmvvm/data/requests/requests.dart';
-import 'package:flutteradvancedmvvm/data/responses/responses.dart';
+import '../network/app_api.dart';
+import '../requests/requests.dart';
+import '../responses/responses.dart';
 
 abstract class RemoteDataSource {
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
   Future<AuthenticationResponse> register(RegisterRequest registerRequest);
   Future<ForgotPasswordResponse> forgotPassword(
       ForgotPasswordRequest forgotPasswordRequest);
+  Future<HomeResponse> getHome();
+  Future<StoreDetailsResponse> getStoreDetails();
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -34,5 +36,15 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   Future<ForgotPasswordResponse> forgotPassword(
       ForgotPasswordRequest forgotPasswordRequest) async {
     return await _appServiceClient.forgotPassword(forgotPasswordRequest.email);
+  }
+
+  @override
+  Future<HomeResponse> getHome() async {
+    return await _appServiceClient.getHome();
+  }
+
+  @override
+  Future<StoreDetailsResponse> getStoreDetails() async{
+    return await _appServiceClient.getStoreDetails();
   }
 }

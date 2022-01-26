@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutteradvancedmvvm/app/functions.dart';
-import 'package:flutteradvancedmvvm/domain/usecase/register_usecase.dart';
-import 'package:flutteradvancedmvvm/presentation/authentication/register/freezedmodel/register_freezed_data.dart';
-import 'package:flutteradvancedmvvm/presentation/base/baseviewmodel.dart';
-import 'package:flutteradvancedmvvm/presentation/common/state_renderer.dart';
-import 'package:flutteradvancedmvvm/presentation/common/state_renderer_impl.dart';
+import '../../../../app/functions.dart';
+import '../../../../domain/usecase/register_usecase.dart';
+import '../freezedmodel/register_freezed_data.dart';
+import '../../../base/baseviewmodel.dart';
+import '../../../common/state_renderer.dart';
+import '../../../common/state_renderer_impl.dart';
 
 class RegisterViewModel extends BaseViewModel
     with RegisterViewModelInputs, RegisterViewModelOutputs {

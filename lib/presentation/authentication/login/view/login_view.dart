@@ -1,16 +1,17 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutteradvancedmvvm/app/app_prefs.dart';
-import 'package:flutteradvancedmvvm/app/dependency_injection.dart';
-import 'package:flutteradvancedmvvm/presentation/authentication/login/viewmodel/login_viewmodel.dart';
-import 'package:flutteradvancedmvvm/presentation/common/state_renderer_impl.dart';
-import 'package:flutteradvancedmvvm/core/assets/assets_manager.dart';
-import 'package:flutteradvancedmvvm/core/colors/color_manager.dart';
-import 'package:flutteradvancedmvvm/core/routes/routes_manager.dart';
-import 'package:flutteradvancedmvvm/core/constants/strings_manager.dart';
-import 'package:flutteradvancedmvvm/core/styles/styles_manager.dart';
-import 'package:flutteradvancedmvvm/core/constants/value_manager.dart';
+import '../../../../app/app_prefs.dart';
+import '../../../../app/dependency_injection.dart';
+import '../viewmodel/login_viewmodel.dart';
+import '../../../common/state_renderer_impl.dart';
+import '../../../../core/assets/assets_manager.dart';
+import '../../../../core/colors/color_manager.dart';
+import '../../../../core/routes/routes_manager.dart';
+import '../../../../core/constants/strings_manager.dart';
+import '../../../../core/styles/styles_manager.dart';
+import '../../../../core/constants/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
         .listen((isSuccessLoggedIn) {
       _appPrefences.setIsUserLoggedIn();
       SchedulerBinding.instance?.addPostFrameCallback((_) {
-        Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
+        Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
       });
     });
   }
@@ -118,7 +119,7 @@ class _LoginViewState extends State<LoginView> {
       onPressed: () {
         Navigator.pushNamed(context, Routes.registerRoute);
       },
-      child: Text(AppStrings.registerTxtBtn,
+      child: Text(AppStrings.registerText.tr(),
           style: Theme.of(context).textTheme.subtitle2),
     );
   }
@@ -128,7 +129,7 @@ class _LoginViewState extends State<LoginView> {
       onPressed: () {
         Navigator.pushNamed(context, Routes.forgotPasswordRoute);
       },
-      child: Text(AppStrings.forgetPassword,
+      child: Text(AppStrings.forgetPassword.tr(),
           style: Theme.of(context).textTheme.subtitle2),
     );
   }
@@ -151,7 +152,7 @@ class _LoginViewState extends State<LoginView> {
                       }
                     : null,
                 child: Text(
-                  AppStrings.loginBtn,
+                  AppStrings.login.tr(),
                   style: getRegularStyle(color: ColorManager.white),
                 ),
               ),
@@ -174,10 +175,10 @@ class _LoginViewState extends State<LoginView> {
               controller: _userPasswordController,
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
-                hintText: AppStrings.password,
-                labelText: AppStrings.password,
+                hintText: AppStrings.password.tr(),
+                labelText: AppStrings.password.tr(),
                 errorText:
-                    (snapshot.data ?? true) ? null : AppStrings.passwordError,
+                    (snapshot.data ?? true) ? null : AppStrings.passwordError.tr(),
               ),
             );
           },
@@ -198,10 +199,10 @@ class _LoginViewState extends State<LoginView> {
               controller: _userNameController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                hintText: AppStrings.userName,
-                labelText: AppStrings.userName,
+                hintText: AppStrings.username.tr(),
+                labelText: AppStrings.username.tr(),
                 errorText:
-                    (snapshot.data ?? true) ? null : AppStrings.userNameError,
+                    (snapshot.data ?? true) ? null : AppStrings.usernameError.tr(),
               ),
             );
           },

@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:flutteradvancedmvvm/domain/usecase/login_usecase.dart';
-import 'package:flutteradvancedmvvm/presentation/authentication/login/freezedmodel/login_freezed_data.dart';
-import 'package:flutteradvancedmvvm/presentation/base/baseviewmodel.dart';
-import 'package:flutteradvancedmvvm/presentation/common/state_renderer.dart';
-import 'package:flutteradvancedmvvm/presentation/common/state_renderer_impl.dart';
+import '../../../../domain/usecase/login_usecase.dart';
+import '../freezedmodel/login_freezed_data.dart';
+import '../../../base/baseviewmodel.dart';
+import '../../../common/state_renderer.dart';
+import '../../../common/state_renderer_impl.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
@@ -67,7 +67,7 @@ class LoginViewModel extends BaseViewModel
     inputPassword.add(password);
     loginObject = loginObject.copyWith(
         password: password); //? data class operation same as kotlin
-        
+
     _validate();
   }
 

@@ -1,4 +1,4 @@
-import 'package:flutteradvancedmvvm/data/network/error_handler.dart';
+import 'error_handler.dart';
 
 class Failure {
   int code; //200 or 400

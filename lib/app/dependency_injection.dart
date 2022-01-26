@@ -1,23 +1,28 @@
-import 'package:flutteradvancedmvvm/app/app_prefs.dart';
-import 'package:flutteradvancedmvvm/data/data_source/remote_data_source.dart';
-import 'package:flutteradvancedmvvm/data/network/app_api.dart';
-import 'package:flutteradvancedmvvm/data/network/dio_factory.dart';
-import 'package:flutteradvancedmvvm/data/network/network_info.dart';
-import 'package:flutteradvancedmvvm/data/repository/repository_impl.dart';
-import 'package:flutteradvancedmvvm/domain/repository/repository.dart';
-import 'package:flutteradvancedmvvm/domain/usecase/forgotpassword_usecase.dart';
-import 'package:flutteradvancedmvvm/domain/usecase/login_usecase.dart';
-import 'package:flutteradvancedmvvm/domain/usecase/register_usecase.dart';
-import 'package:flutteradvancedmvvm/presentation/authentication/forgot_password/viewmodel/forgot_password_viewmodel.dart';
-import 'package:flutteradvancedmvvm/presentation/authentication/login/viewmodel/login_viewmodel.dart';
-import 'package:flutteradvancedmvvm/presentation/authentication/register/viewmodel/register_viewmodel.dart';
+import 'app_prefs.dart';
+import '../data/data_source/locale_data_source.dart';
+import '../data/data_source/remote_data_source.dart';
+import '../data/network/app_api.dart';
+import '../data/network/dio_factory.dart';
+import '../data/network/network_info.dart';
+import '../data/repository/repository_impl.dart';
+import '../domain/repository/repository.dart';
+import '../domain/usecase/forgotpassword_usecase.dart';
+import '../domain/usecase/home_usecase.dart';
+import '../domain/usecase/login_usecase.dart';
+import '../domain/usecase/register_usecase.dart';
+import '../domain/usecase/store_details_usecase.dart';
+import '../presentation/authentication/forgot_password/viewmodel/forgot_password_viewmodel.dart';
+import '../presentation/authentication/login/viewmodel/login_viewmodel.dart';
+import '../presentation/authentication/register/viewmodel/register_viewmodel.dart';
+import '../presentation/main/home/viewmodel/home_viewmodel.dart';
+import '../presentation/store_details/view_model/store_details_viewmodel.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
 
-Future<void> initAppModeule() async {
+Future<void> initAppModule() async {
   final sharedPrefs = await SharedPreferences.getInstance();
 
   //? shared prefs instance
@@ -42,9 +47,13 @@ Future<void> initAppModeule() async {
   instance.registerLazySingleton<RemoteDataSource>(
       () => RemoteDataSourceImplementer(instance()));
 
+  //? locale data source
+  instance.registerLazySingleton<LocaleDataSource>(
+      () => LocaleDataSourceImpl());
+
   //? repository
   instance.registerLazySingleton<Repository>(
-      () => RepositoryImpl(instance(), instance()));
+      () => RepositoryImpl(instance(), instance(),instance()));
 }
 
 initLoginModule() {
@@ -71,4 +80,32 @@ initForgotPasswordModule() {
     instance.registerFactory<ForgotPasswordViewModel>(
         () => ForgotPasswordViewModel(instance()));
   }
+}
+
+initHomeModule() {
+  if (!GetIt.I.isRegistered<HomeUseCase>()) {
+    instance.registerFactory<HomeUseCase>(
+        () => HomeUseCase(instance()));
+    instance.registerFactory<HomeViewModel>(
+        () => HomeViewModel(instance()));
+  }
+}
+
+initStoreDetailsModule() {
+  if (!GetIt.I.isRegistered<StoreDetailsUseCase>()) {
+    instance.registerFactory<StoreDetailsUseCase>(
+        () => StoreDetailsUseCase(instance()));
+    instance.registerFactory<StoreDetailsViewModel>(
+        () => StoreDetailsViewModel(instance()));
+  }
+}
+
+resetModules() {
+  instance.reset(dispose: false);
+  initAppModule();
+  initHomeModule();
+  initLoginModule();
+  initRegisterModule();
+  initForgotPasswordModule();
+  initStoreDetailsModule();
 }

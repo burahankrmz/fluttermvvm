@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:flutteradvancedmvvm/domain/model/model.dart';
-import 'package:flutteradvancedmvvm/presentation/base/baseviewmodel.dart';
-import 'package:flutteradvancedmvvm/core/assets/assets_manager.dart';
-import 'package:flutteradvancedmvvm/core/constants/strings_manager.dart';
+import '../../../domain/model/model.dart';
+import '../../base/baseviewmodel.dart';
+import '../../../core/assets/assets_manager.dart';
+import '../../../core/constants/strings_manager.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OnBoardingViewModel extends BaseViewModel
     with OnBoardingViewModelInputs, OnBoardingViewModelOutputs {
@@ -60,20 +61,20 @@ class OnBoardingViewModel extends BaseViewModel
 
   List<SliderObject> _getSliderData() => [
         SliderObject(
-            AppStrings.onBoardingTitle1,
-            AppStrings.onBoardingSubTitle1,
+            AppStrings.onBoardingTitle1.tr(),
+            AppStrings.onBoardingSubTitle1.tr(),
             ImageAssets.onboardingLogo1),
         SliderObject(
-            AppStrings.onBoardingTitle2,
-             AppStrings.onBoardingSubTitle2,
+            AppStrings.onBoardingTitle2.tr(),
+             AppStrings.onBoardingSubTitle2.tr(),
              ImageAssets.onboardingLogo2),
         SliderObject(
-            AppStrings.onBoardingTitle3,
-            AppStrings.onBoardingSubTitle3,
+            AppStrings.onBoardingTitle3.tr(),
+            AppStrings.onBoardingSubTitle3.tr(),
              ImageAssets.onboardingLogo3),
         SliderObject(
-             AppStrings.onBoardingTitle4,
-            AppStrings.onBoardingSubTitle4,
+             AppStrings.onBoardingTitle4.tr(),
+            AppStrings.onBoardingSubTitle4.tr(),
             ImageAssets.onboardingLogo4),
       ];
 

@@ -1,10 +1,10 @@
-import 'package:flutteradvancedmvvm/app/functions.dart';
-import 'package:flutteradvancedmvvm/data/network/failure.dart';
+import '../../app/functions.dart';
+import '../../data/network/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutteradvancedmvvm/data/requests/requests.dart';
-import 'package:flutteradvancedmvvm/domain/model/model.dart';
-import 'package:flutteradvancedmvvm/domain/repository/repository.dart';
-import 'package:flutteradvancedmvvm/domain/usecase/base_usecase.dart';
+import '../../data/requests/requests.dart';
+import '../model/model.dart';
+import '../repository/repository.dart';
+import 'base_usecase.dart';
 
 class LoginUseCase implements BaseUsecase<LoginUseCaseInput, Authentication> {
   final Repository _repository;
@@ -15,6 +15,7 @@ class LoginUseCase implements BaseUsecase<LoginUseCaseInput, Authentication> {
     return await _repository
         .login(LoginRequest(input.email, input.password, deviceInfo.identifier, deviceInfo.name));
   }
+
 }
 
 class LoginUseCaseInput {

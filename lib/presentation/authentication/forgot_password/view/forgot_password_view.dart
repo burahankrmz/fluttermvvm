@@ -1,13 +1,15 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutteradvancedmvvm/app/dependency_injection.dart';
-import 'package:flutteradvancedmvvm/presentation/authentication/forgot_password/viewmodel/forgot_password_viewmodel.dart';
-import 'package:flutteradvancedmvvm/presentation/common/state_renderer_impl.dart';
-import 'package:flutteradvancedmvvm/core/assets/assets_manager.dart';
-import 'package:flutteradvancedmvvm/core/colors/color_manager.dart';
-import 'package:flutteradvancedmvvm/core/constants/strings_manager.dart';
-import 'package:flutteradvancedmvvm/core/styles/styles_manager.dart';
-import 'package:flutteradvancedmvvm/core/constants/value_manager.dart';
+import '../../../../app/dependency_injection.dart';
+import '../../../../core/assets/assets_manager.dart';
+import '../../../../core/colors/color_manager.dart';
+import '../../../../core/constants/strings_manager.dart';
+import '../../../../core/constants/value_manager.dart';
+import '../../../../core/styles/styles_manager.dart';
+import '../viewmodel/forgot_password_viewmodel.dart';
+import '../../../common/state_renderer_impl.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({Key? key}) : super(key: key);
@@ -103,10 +105,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  hintText: AppStrings.email,
-                  labelText: AppStrings.email,
+                  hintText: AppStrings.emailHint.tr(),
+                  labelText: AppStrings.emailHint.tr(),
                   errorText:
-                      (snapshot.data ?? true) ? null : AppStrings.emailError,
+                      (snapshot.data ?? true) ? null : AppStrings.invalidEmail.tr(),
                 ),
               );
             }),
@@ -126,11 +128,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 return ElevatedButton(
                   onPressed: (snapshot.data ?? false)
                       ? () {
-                          _viewModel.forgotPassword();
+                          _viewModel.forgotPassword().tr();
                         }
                       : null,
                   child: Text(
-                    AppStrings.resetPasswordBtn,
+                    AppStrings.resetPassword.tr(),
                     style: getRegularStyle(color: ColorManager.white),
                   ),
                 );
@@ -148,7 +150,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           onPressed: () {
             _viewModel.forgotPassword();
           },
-          child: const Text(AppStrings.didntReceiveMailTextBtn),
+          child:  Text(AppStrings.didntReceiveMailTextBtn.tr()),
         ),
       ),
     );

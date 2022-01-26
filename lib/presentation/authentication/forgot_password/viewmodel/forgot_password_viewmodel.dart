@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:flutteradvancedmvvm/domain/usecase/forgotpassword_usecase.dart';
-import 'package:flutteradvancedmvvm/presentation/authentication/forgot_password/freezedmodel/forgotpassword_freezed_data.dart';
-import 'package:flutteradvancedmvvm/presentation/base/baseviewmodel.dart';
-import 'package:flutteradvancedmvvm/presentation/common/state_renderer.dart';
-import 'package:flutteradvancedmvvm/presentation/common/state_renderer_impl.dart';
+import '../../../../domain/usecase/forgotpassword_usecase.dart';
+import '../freezedmodel/forgotpassword_freezed_data.dart';
+import '../../../base/baseviewmodel.dart';
+import '../../../common/state_renderer.dart';
+import '../../../common/state_renderer_impl.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {

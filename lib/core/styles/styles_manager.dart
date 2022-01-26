@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutteradvancedmvvm/core/fonts/font_manager.dart';
+import '../fonts/font_manager.dart';
 
 TextStyle _getTextStyle(
     double fontSize, String fontFamily, FontWeight fontWeight, Color color) {

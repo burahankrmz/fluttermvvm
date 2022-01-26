@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutteradvancedmvvm/data/mapper/mapper.dart';
-import 'package:flutteradvancedmvvm/data/network/failure.dart';
-import 'package:flutteradvancedmvvm/core/assets/assets_manager.dart';
-import 'package:flutteradvancedmvvm/core/colors/color_manager.dart';
-import 'package:flutteradvancedmvvm/core/fonts/font_manager.dart';
-import 'package:flutteradvancedmvvm/core/constants/strings_manager.dart';
-import 'package:flutteradvancedmvvm/core/styles/styles_manager.dart';
-import 'package:flutteradvancedmvvm/core/constants/value_manager.dart';
+import '../../data/mapper/mapper.dart';
+import '../../data/network/failure.dart';
+import '../../core/assets/assets_manager.dart';
+import '../../core/colors/color_manager.dart';
+import '../../core/fonts/font_manager.dart';
+import '../../core/constants/strings_manager.dart';
+import '../../core/styles/styles_manager.dart';
+import '../../core/constants/value_manager.dart';
 import 'package:lottie/lottie.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 enum StateRendererType {
   //? POPUP STATES
@@ -39,14 +40,14 @@ class StateRenderer extends StatelessWidget {
   final String message;
   final String title;
   final Function? retryActionFunction;
-  const StateRenderer(
+   StateRenderer(
       {Key? key,
       required this.stateRendererType,
       Failure? failure,
       String? message,
       String? title,
       this.retryActionFunction})
-      : message = message ?? AppStrings.loading,
+      : message = message ?? AppStrings.loading.tr(),
         title = title ?? EMPTY,
         super(key: key);
 
@@ -65,7 +66,7 @@ class StateRenderer extends StatelessWidget {
         return _getPopUpDialog(context, [
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
-          _getRetryButton(AppStrings.ok, context)
+          _getRetryButton(AppStrings.ok.tr(), context)
         ]);
       case StateRendererType.FULL_SCREEN_LOADING_STATE:
         return _getItemsInColumn(
@@ -74,14 +75,14 @@ class StateRenderer extends StatelessWidget {
         return _getItemsInColumn([
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
-          _getRetryButton(AppStrings.retryAgain, context)
+          _getRetryButton(AppStrings.retryagain.tr(), context)
         ]);
       case StateRendererType.POPUP_SUCCESS:
          return _getPopUpDialog(context, [
           _getAnimatedImage(JsonAssets.success),
           _getMessage(title),
           _getMessage(message),
-          _getRetryButton(AppStrings.ok, context)
+          _getRetryButton(AppStrings.ok.tr(), context)
         ]);
       case StateRendererType.CONTENT_SCREEN_STATE:
         return Container();

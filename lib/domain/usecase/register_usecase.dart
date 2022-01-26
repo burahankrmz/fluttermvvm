@@ -1,9 +1,9 @@
-import 'package:flutteradvancedmvvm/data/network/failure.dart';
+import '../../data/network/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutteradvancedmvvm/data/requests/requests.dart';
-import 'package:flutteradvancedmvvm/domain/model/model.dart';
-import 'package:flutteradvancedmvvm/domain/repository/repository.dart';
-import 'package:flutteradvancedmvvm/domain/usecase/base_usecase.dart';
+import '../../data/requests/requests.dart';
+import '../model/model.dart';
+import '../repository/repository.dart';
+import 'base_usecase.dart';
 
 class RegisterUsecase
     implements BaseUsecase<RegisterUsecaseInput, Authentication> {
