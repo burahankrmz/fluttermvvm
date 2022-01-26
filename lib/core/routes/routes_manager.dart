@@ -5,7 +5,7 @@ import 'package:flutteradvancedmvvm/presentation/authentication/login/view/login
 import 'package:flutteradvancedmvvm/presentation/authentication/register/view/register_view.dart';
 import 'package:flutteradvancedmvvm/presentation/home/home.dart';
 import 'package:flutteradvancedmvvm/presentation/onboarding/view/onboarding_view.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
+import 'package:flutteradvancedmvvm/core/constants/strings_manager.dart';
 import 'package:flutteradvancedmvvm/presentation/splash/splash.dart';
 import 'package:flutteradvancedmvvm/presentation/store_details/store_details.dart';
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutteradvancedmvvm/data/mapper/mapper.dart';
 import 'package:flutteradvancedmvvm/data/network/failure.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/assets_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/color_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/font_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/styles_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/value_manager.dart';
+import 'package:flutteradvancedmvvm/core/assets/assets_manager.dart';
+import 'package:flutteradvancedmvvm/core/colors/color_manager.dart';
+import 'package:flutteradvancedmvvm/core/fonts/font_manager.dart';
+import 'package:flutteradvancedmvvm/core/constants/strings_manager.dart';
+import 'package:flutteradvancedmvvm/core/styles/styles_manager.dart';
+import 'package:flutteradvancedmvvm/core/constants/value_manager.dart';
 import 'package:lottie/lottie.dart';
 
 enum StateRendererType {

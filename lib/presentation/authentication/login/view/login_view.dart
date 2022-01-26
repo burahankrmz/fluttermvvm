@@ -5,12 +5,12 @@ import 'package:flutteradvancedmvvm/app/app_prefs.dart';
 import 'package:flutteradvancedmvvm/app/dependency_injection.dart';
 import 'package:flutteradvancedmvvm/presentation/authentication/login/viewmodel/login_viewmodel.dart';
 import 'package:flutteradvancedmvvm/presentation/common/state_renderer_impl.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/assets_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/color_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/routes_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/strings_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/styles_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/value_manager.dart';
+import 'package:flutteradvancedmvvm/core/assets/assets_manager.dart';
+import 'package:flutteradvancedmvvm/core/colors/color_manager.dart';
+import 'package:flutteradvancedmvvm/core/routes/routes_manager.dart';
+import 'package:flutteradvancedmvvm/core/constants/strings_manager.dart';
+import 'package:flutteradvancedmvvm/core/styles/styles_manager.dart';
+import 'package:flutteradvancedmvvm/core/constants/value_manager.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);

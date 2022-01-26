@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/routes_manager.dart';
-import 'package:flutteradvancedmvvm/presentation/resources/theme_manager.dart';
+import 'package:flutteradvancedmvvm/core/routes/routes_manager.dart';
+import 'package:flutteradvancedmvvm/core/theme/theme_manager.dart';
 
 // ignore: must_be_immutable
 class MyApp extends StatefulWidget {

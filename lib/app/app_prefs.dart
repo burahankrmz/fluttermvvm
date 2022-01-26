@@ -1,4 +1,4 @@
-import 'package:flutteradvancedmvvm/presentation/resources/language_manager.dart';
+import 'package:flutteradvancedmvvm/core/lang/language_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: constant_identifier_names
